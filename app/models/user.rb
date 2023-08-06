@@ -6,6 +6,8 @@ class User < ApplicationRecord
          
   has_one_attached :user_image
   
+  has_many :books, dependent: :destroy
+  
   def get_user_image(width, height)
     unless user_image.attached?
       file_path = Rails.root.join('app/assets/images/sample.jpg')

@@ -22,8 +22,8 @@
             <ul class="navbar-nav ml-auto">
               <% if user_signed_in? %>
                 <li><%= link_to root_path ,class:'nav-link text-light' do %><i class="fas fa-home" aria-hidden="true"></i>Home<% end %></li>
-                <li><%= link_to root_path, class:'nav-link text-light' do %><i></i>User<% end %></li>
-                <li><%= link_to root_path, class:'nav-link text-light' do %><i></i>Book<% end %></li>
+                <li><%= link_to user_path(current_user.id), class:'nav-link text-light' do %><i></i>User<% end %></li>
+                <li><%= link_to books_path, class:'nav-link text-light' do %><i></i>Book<% end %></li>
                 <li><%= link_to destroy_user_session_path, method: :delete, class:'nav-link text-light' do %><i></i>Log out<% end %></li>
               <% else %>
                 <li><%= link_to root_path ,class:'nav-link text-light' do %><i class="fas fa-home" aria-hidden="true"></i>Home<% end %></li>
