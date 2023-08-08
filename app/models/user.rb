@@ -11,6 +11,11 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
   
+  has_many :follows, class_name:'Relationship', foreign_key:'follow_id', dependent: :destroy
+  has_many :followeds, class_name:'Relationship', foreign_key:'followed_id', dependent: :destroy
+  has_many :follow_users, through:follows, source:followed
+  has_many :followed_users, through:followeds, source:follow
+  
   def get_user_image(width, height)
     unless user_image.attached?
       file_path = Rails.root.join('app/assets/images/sample.jpg')
