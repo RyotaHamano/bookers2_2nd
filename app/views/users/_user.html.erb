@@ -20,18 +20,20 @@
     </tr>
   </tbody>
 </table>
-<% if user == current_user %>
-  <div class="row">
-    <%= link_to edit_user_path(user), class:'btn btn-outline-secondary btn-block' do %>
-      <i class="fas fa-user-cog" aria-hidden="true"></i>
-    <% end %>
-  </div>
-<% else %>
-  <div class="row">
-    <% if current_user.follow?(user) %>
-      <%= link_to 'フォロー外す', user_relations_path(user), method: :delete, class: 'btn btn-danger' %>
-    <% else %>
-      <%= link_to 'フォローする', user_relations_path(user), method: :post, class: 'btn btn-primary'%>
-    <% end %>
-  </div>
+<% unless user.guest_user? %>
+  <% if user == current_user %>
+    <div class="row">
+      <%= link_to edit_user_path(user), class:'btn btn-outline-secondary btn-block' do %>
+        <i class="fas fa-user-cog" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="row">
+      <% if current_user.follow?(user) %>
+        <%= link_to 'フォロー外す', user_relations_path(user), method: :delete, class: 'btn btn-danger' %>
+      <% else %>
+        <%= link_to 'フォローする', user_relations_path(user), method: :post, class: 'btn btn-primary'%>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
