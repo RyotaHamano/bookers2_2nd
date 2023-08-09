@@ -1,19 +1,37 @@
 <h2>User info</h2>
-      <%= image_tag user.get_user_image(100, 100) %>
-      <table class="table">
-        <tbody>
-          <tr>
-            <th>name</th>
-            <th><%= user.name %></th>
-          </tr>
-          <tr>
-            <th>introduction</th>
-            <th><%= user.introduction %></th>
-          </tr>
-        </tbody>
-      </table>
-      <div class="row">
-        <%= link_to edit_user_path(user), class:'btn btn-outline-secondary btn-block' do %>
-          <i class="fas fa-user-cog" aria-hidden="true"></i>
-        <% end %>
-      </div>
+<%= image_tag user.get_user_image(100, 100) %>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>name</th>
+      <th><%= user.name %></th>
+    </tr>
+    <tr>
+      <th>introduction</th>
+      <th><%= user.introduction %></th>
+    </tr>
+    <tr>
+      <th>follow</th>
+      <th><%= link_to follows_user_path(user.id) do %><%= user.follow_user.count %><% end %></th>
+    </tr>
+    <tr>
+      <th>follower</th>
+      <th><%= link_to followers_user_path(user.id) do %><%= user.followed_user.count %><% end %></th>
+    </tr>
+  </tbody>
+</table>
+<% if user == current_user %>
+  <div class="row">
+    <%= link_to edit_user_path(user), class:'btn btn-outline-secondary btn-block' do %>
+      <i class="fas fa-user-cog" aria-hidden="true"></i>
+    <% end %>
+  </div>
+<% else %>
+  <div class="row">
+    <% if current_user.follow?(user) %>
+      <%= link_to 'フォロー外す', user_relations_path(user), method: :delete, class: 'btn btn-danger' %>
+    <% else %>
+      <%= link_to 'フォローする', user_relations_path(user), method: :post, class: 'btn btn-primary'%>
+    <% end %>
+  </div>
+<% end %>

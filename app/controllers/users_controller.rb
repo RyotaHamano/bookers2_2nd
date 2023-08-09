@@ -7,9 +7,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find(params[:id])
+    @user = User.find(params[:id])
     @book = Book.new
-    @books = user.books.all
+    @books = @user.books.all
   end
 
   def edit
@@ -28,6 +28,16 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+  
+  def follows
+    @user = User.find(params[:id])
+    @users = @user.follow_user
+  end
+  
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.followed_user
   end
   
   private

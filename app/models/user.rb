@@ -11,10 +11,10 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
   
-  has_many :follows, class_name:'Relationship', foreign_key:'follow_id', dependent: :destroy
-  has_many :followeds, class_name:'Relationship', foreign_key:'followed_id', dependent: :destroy
-  has_many :follow_users, through:follows, source:followed
-  has_many :followed_users, through:followeds, source:follow
+  has_many :follow, class_name: 'Relation', foreign_key: "follow_id", dependent: :destroy
+  has_many :followed, class_name: 'Relation', foreign_key: "followed_id", dependent: :destroy
+  has_many :follow_user, through: :follow, source: :followed
+  has_many :followed_user, through: :followed, source: :follow
   
   def get_user_image(width, height)
     unless user_image.attached?
@@ -23,4 +23,9 @@ class User < ApplicationRecord
     end
     user_image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  def follow?(user)
+    follow_user.include?(user)
+  end
+  
 end
