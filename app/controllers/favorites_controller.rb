@@ -4,7 +4,6 @@ class FavoritesController < ApplicationController
     @book = Book.find(params[:book_id])
     favorite = current_user.favorites.new(book_id: @book.id)
     favorite.save
-    redirect_to request.referer
   end 
   
   def destroy
@@ -12,7 +11,6 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.find_by(book_id: @book.id)
     if current_user.id == @favorite.user_id
       @favorite.destroy
-      redirect_to request.referer
     else
       render 'books/book'
     end
