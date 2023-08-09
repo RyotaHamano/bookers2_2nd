@@ -1,0 +1,12 @@
+$('#follow-btn').html('<%= j(render 'relations/follow', user: @user ) %>');
+
+if ($('#follow-btn').hasClass('index')){
+  $('#following-user').html('<%= j(render 'relations/following', user: current_user) %>');
+  $('#followed-user').html('<%= j(render 'relations/followed', user: current_user) %>');
+}else{
+  $('#following-user').html('<%= j(render 'relations/following', user: @user) %>');
+  $('#followed-user').html('<%= j(render 'relations/followed', user: @user) %>');
+  }
+
+  
+
