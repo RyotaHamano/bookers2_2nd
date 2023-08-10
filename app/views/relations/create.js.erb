@@ -1,9 +1,14 @@
-$('#follow-btn').html('<%= j(render 'relations/follow', user: @user ) %>');
-
 if ($('#follow-btn').hasClass('index')){
   $('#following-user').html('<%= j(render 'relations/following', user: current_user) %>');
   $('#followed-user').html('<%= j(render 'relations/followed', user: current_user) %>');
+  $('#user_<%= current_user.id %>').children('#follow-btn').html('<%= j(render 'relations/follow', user: current_user ) %>');
+  $('#user_<%= current_user.id %>').children('.following-user_index').html('<%= j(render 'relations/following_index', user: current_user) %>');
+  $('#user_<%= current_user.id %>').children('.followed-user_index').html('<%= j(render 'relations/followed_index', user: current_user) %>');
+  $('#user_<%= @user.id %>').children('#follow-btn').html('<%= j(render 'relations/follow', user: @user ) %>');
+  $('#user_<%= @user.id %>').children('.following-user_index').html('<%= j(render 'relations/following_index', user: @user) %>');
+  $('#user_<%= @user.id %>').children('.followed-user_index').html('<%= j(render 'relations/followed_index', user: @user) %>');
 }else{
+  $('#follow-btn').html('<%= j(render 'relations/follow', user: @user ) %>');
   $('#following-user').html('<%= j(render 'relations/following', user: @user) %>');
   $('#followed-user').html('<%= j(render 'relations/followed', user: @user) %>');
   }
